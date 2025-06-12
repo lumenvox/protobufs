@@ -1,0 +1,198 @@
+// Batch API Protocol Buffer File
+// This is the gRPC definition for the LumenVox Batch API
+
+syntax = "proto3";
+
+package lumenvox.api;
+
+import "google/rpc/status.proto";
+import "lumenvox/api/audio_formats.proto";
+
+option csharp_namespace = "LumenVox.Api.Batch";
+option go_package = "lumenvox/api";
+option java_multiple_files = false;
+option java_outer_classname = "BatchProto";
+option java_package = "lumenvox.api";
+option objc_class_prefix = "CLVOP";
+option php_namespace = "LumenVox\\Api\\Batch";
+
+
+// Batch Service
+//
+// The LumenVox Batch API can be used to access various batch operations,
+// such as offline transcription, etc.
+//
+service Batch {
+  // Batch
+  //
+  // Creates a new Batch and establishes a bidirectional stream, able to
+  // process all messages on this single bidirectional connection
+  //
+  rpc Batch(stream BatchRequest)
+      returns (stream BatchResponse);
+}
+
+// ======== Batch Messages ===============================================
+
+message BatchRequest {
+  oneof request_type {
+    // Creates a new batch and returns its ID that can be used to access other
+    // batch operations
+    BatchCreateRequest create = 1;
+
+    // Attach to an existing batch to access batch operations
+    BatchAttachRequest attach = 2;
+
+    // Request creation of a new file related to a batch
+    BatchCreateFileRequest create_file = 3;
+
+    // Send sequential chunk of a file data sent for specified batch
+    BatchSendFileChunkRequest send_file_chunk = 4;
+
+    // Request the status of specified batch operation
+    BatchStatusRequest status = 5;
+
+    // Request to close and end a batch (stopping processing if needed)
+    BatchCloseRequest close = 6;
+  }
+}
+
+message BatchCreateRequest {
+  // Configuration parameters that describes the operation performed by the
+  // batch, as well as parameters to use while executing the operation
+  //
+  BatchConfig batch_config = 1;
+}
+
+message BatchAttachRequest {
+  // Valid identifier of existing batch to attach to
+  string batch_id = 1;
+}
+
+message BatchStatusRequest {
+  // Valid identifier of existing batch to request status of
+  string batch_id = 1;
+
+  // Identifier for specific batch step (if any)
+  string batch_step_id = 2;
+
+  // Status information for batch processing
+  BatchStatus batch_status = 3;
+}
+
+message BatchConfig {
+  oneof batch_config {
+    // Configuration parameters for a transcription batch operation
+    TranscriptionBatchConfig transcription_batch_config = 1;
+
+    // Configuration parameters for an ASR batch operation
+    AsrBatchConfig asr_batch_config = 2;
+  }
+}
+
+message TranscriptionBatchConfig {
+  // TODO: This is not yet defined
+}
+
+message AsrBatchConfig {
+  // TODO: This is not yet defined
+}
+
+message BatchStatus {
+  oneof batch_status {
+    // Status for a transcription batch operation
+    TranscriptionBatchStatus transcription_batch_status = 1;
+
+    // Status for an ASR batch operation
+    AsrBatchStatus asr_batch_status = 2;
+  }
+}
+
+message TranscriptionBatchStatus {
+  // TODO: This is not yet defined
+}
+
+message AsrBatchStatus {
+  // TODO: This is not yet defined
+}
+
+message BatchResponse {
+  oneof response_type {
+    // Batch callback messages
+    BatchCallbackResponse batch_callback = 1;
+  }
+}
+
+message BatchCallbackResponse {
+  // Responses will be in the form of streamed callback messages, and will be
+  // one of the following types
+  oneof response{
+    // ID of newly created or attached batch (returned from initial call)
+    string batch_id = 1;
+
+    // Batch status response
+    BatchStatus batch_status = 2;
+
+    // Final results notification
+    BatchResult batch_result = 3;
+
+    // Batch event notification (typically used for errors)
+    BatchEvent batch_event = 4;
+  }
+}
+
+message BatchCloseRequest {
+  // Reference to batch to close
+  string batch_id = 1;
+}
+
+// ======== Callback Messages  ===============================================
+
+// BatchResult
+//
+message BatchResult {
+  // The batch object being referenced
+  string batch_id = 1;
+
+  // The batch step object being referenced (if any)
+  string batch_step_id = 2;
+
+  // The JSON object containing the result
+  // TODO : Change this to protocol buffer message type
+  string results_json = 3;
+}
+
+message BatchCreateFileRequest {
+  // Name of file being created (for informational purposes only)
+  string filename = 1;
+
+  // Specifies the audio format (if applicable) for the file
+  AudioFormat batch_audio_format = 2;
+}
+
+message BatchCreateFileResponse {
+  // Batch file identifier to use when referencing the created file
+  string batch_file_id = 1;
+}
+
+message BatchSendFileChunkRequest {
+  // Batch file identifier returned from previous BatchFileRequestRequest
+  string batch_file_id = 1;
+
+  // Sequential block of data relating to file
+  bytes file_data = 2;
+}
+
+message BatchEvent {
+  // The batch object being referenced
+  string batch_id = 1;
+
+  // Batch step object being referenced (if any)
+  string batch_step_id = 2;
+
+  // Batch file object being referenced (if any)
+  string batch_file_id = 3;
+
+  // String containing event information
+  google.rpc.Status status_message = 4;
+}

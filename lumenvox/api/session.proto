@@ -152,6 +152,9 @@ message SessionResponse {
     // Response to create LanguageId interaction request
     InteractionCreateLanguageIdResponse interaction_create_language_id = 23;
 
+    // Response to create Neuron interaction request
+    InteractionCreateNeuronResponse interaction_create_neuron = 24;
+
     // Additional InteractionResponse message types added here
 
     // Response to interaction cancel

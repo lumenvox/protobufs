@@ -4,7 +4,6 @@
 syntax = "proto3";
 
 package lumenvox.api;
-
 import "google/rpc/status.proto";
 import "lumenvox/api/audio_formats.proto";
 import "lumenvox/api/common.proto";
@@ -61,6 +60,9 @@ message InteractionRequestMessage {
 
     // Create a language-id request
     InteractionCreateLanguageIdRequest interaction_create_language_id = 15;
+
+    // Create a neuron request
+    InteractionCreateNeuronRequest interaction_create_neuron = 16;
 
     // Additional InteractionRequest message types added here
 
@@ -401,6 +403,25 @@ message InteractionCreateGrammarParseResponse {
   string interaction_id = 1;
 }
 
+message InteractionCreateNeuronRequest {
+  // Language to use for neuron processing (e.g. en-us)
+  string language = 1;
+
+  // Input string to process.
+  string transcript = 2;
+
+  // Neuron model name to use
+  string model_name = 3;
+
+  // Optional settings related to all interactions
+  GeneralInteractionSettings general_interaction_settings = 4;
+}
+
+message InteractionCreateNeuronResponse {
+  // Interaction ID (UUID) that can be used during subsequent Neuron
+  // processing
+  string interaction_id = 1;
+}
 
 message InteractionBeginProcessingRequest {
   // The interaction object being referenced

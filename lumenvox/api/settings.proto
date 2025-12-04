@@ -154,6 +154,12 @@ message GrammarSettings {
   // will be raised.
   // Default: 0 (Unlimited)
   OptionalInt32 grammar_threshold = 5;
+
+  // Maximum number of words to parse for enhanced transcription. This does
+  // not apply to legacy enhanced transcription.
+  // Range: 1-
+  // Default: 6
+  OptionalInt32 max_enhanced_length = 6;
 }
 
 // Settings related to recognition results

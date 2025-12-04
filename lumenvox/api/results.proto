@@ -50,7 +50,7 @@ message AsrResultMetaData {
   // Length of transcript in milliseconds.
   int32 duration_ms = 4;
 
-  // Overall confidence of the entire transcript.
+  // Value 0 to 1000 on how confident the transcript result is.
   uint32 confidence = 5;
 }
 
@@ -205,6 +205,27 @@ message LanguageIdResult {
 
   // Value 0 to 1000 on how confident the result is.
   uint32 confidence = 2;
+}
+
+// Result returned from a Neuron interaction.
+//
+message NeuronInteractionResult {
+  // Array of one or more matching intents detected
+  repeated NeuronIntentResult results = 1;
+
+  // Optional metadata retuned with from the intent processing
+  string metadata_json = 2;
+}
+
+// Individual Neuron intent result within the processed response along with
+// related result fields, including confidence score.
+//
+message NeuronIntentResult {
+  // Identifies the intent detected within this result
+  string intent = 1;
+
+  // Value 0 to 1000 on how confident the result match is.
+  uint32 confidence = 3;
 }
 
 // Result returned from a transcription interaction.
@@ -393,6 +414,9 @@ message Result {
 
     // Result for LanguageId interaction
     LanguageIdInteractionResult language_id_interaction_result = 10;
+
+    // Result for Neuron interaction
+    NeuronInteractionResult neuron_interaction_result = 11;
   }
 }
 
@@ -495,4 +519,7 @@ enum FinalResultStatus {
 
   // A language ID result was returned for a requested interaction
   FINAL_RESULT_STATUS_LANGUAGE_ID_RESULT = 91;
+
+  // A Neuron result was returned for a requested interaction
+  FINAL_RESULT_STATUS_NEURON_RESULT = 101;
 }

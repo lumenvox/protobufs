@@ -7,6 +7,7 @@ package lumenvox.api;
 
 import "google/rpc/status.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
 import "lumenvox/api/common.proto";
 import "lumenvox/api/results.proto";
 import "lumenvox/api/settings.proto";
@@ -159,6 +160,145 @@ service ReportingAPIService {
   //
   rpc EvaluateTranscription(EvaluateTranscriptionRequest)
       returns (EvaluateTranscriptionResponse);
+
+  // Creates a new Post-Processing Profile within a deployment and returns its server-generated GUID.
+  //
+  // Request:
+  // - CreatePostProcessingProfileRequest:
+  //   - Includes data needed to define the profile (for example: deployment_id, name, and operations).
+  //   - Operations are applied in ascending order of their index; index values should be unique within the profile.
+  //
+  // Response:
+  // - CreatePostProcessingProfileResponse:
+  //   - Contains the GUID (UUID) of the newly created profile (profile_id).
+  //
+  // Behavior:
+  // - The profile name should be unique within the specified deployment.
+  // - Implementation will validate the operations list (e.g., non-empty pattern strings).
+  //
+  // Errors:
+  // - INVALID_ARGUMENT: Malformed request (e.g., missing required fields, invalid operations).
+  // - NOT_FOUND: Specified deployment does not exist.
+  // - ALREADY_EXISTS: A profile with the same name already exists within the deployment.
+  rpc CreatePostProcessingProfile (CreatePostProcessingProfileRequest) returns (CreatePostProcessingProfileResponse);
+
+  // Retrieves Post-Processing Profile, specified by id.
+  //
+  // Request:
+  // - GetPostProcessingProfileRequest:
+  //   - Contains requesting profile ID (profile_id).
+  //
+  // Response:
+  // - GetPostProcessingProfilesResponse:
+  //   - Contains Post-Processing Profile message.
+  //
+  // Errors:
+  // - INVALID_ARGUMENT: Malformed request (e.g., invalid profile_id UUID string).
+  // - NOT_FOUND: Specified profile_id does not exist.
+  rpc GetPostProcessingProfile (GetPostProcessingProfileRequest) returns (GetPostProcessingProfileResponse);
+
+  // Retrieves Post-Processing Profiles, filtered by criteria in the request.
+  //
+  // Request:
+  // - GetPostProcessingProfilesRequest:
+  //
+  // Response:
+  // - GetPostProcessingProfilesResponse:
+  //   - Contains a list of matching Post-Processing Profile(s).
+  //
+  // Errors:
+  // - INVALID_ARGUMENT: Malformed request (e.g., invalid UUID string).
+  rpc GetPostProcessingProfiles (GetPostProcessingProfilesRequest) returns (GetPostProcessingProfilesResponse);
+
+  // Updates specified Post-Processing Profile.
+  //
+  // Request:
+  // - UpdatePostProcessingProfileRequest:
+  //   - Contains profile_id of updating profile and new list of RegexOperations
+  //
+  // Response:
+  // - UpdatePostProcessingProfileResponse:
+  //   - Contains the updated profile
+  //
+  // Behavior:
+  // - Server-managed fields (profile_id, created_at) are immutable;
+  // - A successful update should increment the profile version.
+  //
+  // Errors:
+  // - INVALID_ARGUMENT: Malformed request (e.g., missing profile identifier, invalid operations).
+  // - NOT_FOUND: Specified profile do not exist.
+  rpc UpdatePostProcessingProfile (UpdatePostProcessingProfileRequest) returns (UpdatePostProcessingProfileResponse);
+
+  // Deletes a Post-Processing Profile identified in the request.
+  //
+  // Request:
+  // - DeletePostProcessingProfileRequest:
+  //   - Identifies the target profile to delete by profile_id.
+  //
+  // Response:
+  // - DeletePostProcessingProfileResponse:
+  //   - Confirms the deletion and may include later additional metadata about the deleted profile.
+  //
+  // Behavior:
+  // - The operation removes the specified profile from use.
+  //
+  // Errors:
+  // - INVALID_ARGUMENT: Malformed request (e.g., missing required identifier).
+  // - NOT_FOUND: The specified profile does not exist or is already deleted.
+  rpc DeletePostProcessingProfile (DeletePostProcessingProfileRequest) returns (DeletePostProcessingProfileResponse);
+
+  // Exports a Post-Processing Profile into a portable representation.
+  //
+  // Request:
+  // - ExportPostProcessingProfileRequest:
+  //   - Identifies which profile to export.
+  //
+  // Response:
+  // - ExportPostProcessingProfileResponse:
+  //   - Contains the serialized/portable profile definition suitable for backup, migration, or import.
+  //
+  // Behavior:
+  // - The exported payload should include all data necessary to faithfully recreate the profile,
+  //   including name, operations (with ordering), and versioning history.
+  //
+  // Errors:
+  // - INVALID_ARGUMENT: Malformed request (e.g., missing identifiers).
+  // - NOT_FOUND: The specified profile (or version) does not exist.
+  rpc ExportPostProcessingProfile (ExportPostProcessingProfileRequest) returns (ExportPostProcessingProfileResponse);
+
+  // Imports a Post-Processing Profile from a portable representation.
+  //
+  // Request:
+  // - ImportPostProcessingProfileRequest:
+  //   - Provides the serialized/portable profile definition to import.
+  //
+  // Response:
+  // - ImportPostProcessingProfileResponse:
+  //   - Returns identifiers for the imported profile (profile_id).
+  //
+  // Errors:
+  // - INVALID_ARGUMENT: Malformed payload or validation errors.
+  // - ALREADY_EXISTS: Conflict with an existing profile when overwrite is not allowed.
+  // - NOT_FOUND: Referenced deployment does not exist.
+  rpc ImportPostProcessingProfile (ImportPostProcessingProfileRequest) returns (ImportPostProcessingProfileResponse);
+
+  // Retrieves the full version history of a Post-Processing Profile.
+  //
+  // Request:
+  // - GetPostProcessingProfileHistoryRequest:
+  //   - Identifies the target profile by profile_id
+  //
+  // Response:
+  // - GetPostProcessingProfileHistoryResponse:
+  //   - Contains an ordered collection of profile versions (ascending by version number)
+  //
+  // Behavior:
+  // - Returned versions should reflect the exact historical state, including timestamps.
+  //
+  // Errors:
+  // - INVALID_ARGUMENT: Malformed request.
+  // - NOT_FOUND: The specified profile does not exist.
+  rpc GetPostProcessingProfileHistory (GetPostProcessingProfileHistoryRequest) returns (GetPostProcessingProfileHistoryResponse);
 }
 
 // ======== messages below  ===============================================
@@ -1066,6 +1206,12 @@ message DiagnosticsCheckResponse {
   // Error message in case of errors or empty sting if the diagnostic check was
   // successful
   string errorMessage = 1;
+
+  // The version number of the resource being checked, if appropriate
+  string versionString = 2;
+
+  // Number of milliseconds needed to obtain a diagnostic response
+  int32 latencyMs = 3;
 }
 
 //
@@ -1093,4 +1239,211 @@ message EvaluateTranscriptionResponse {
 
   // transcribed text with highlighted differences using html tags
   string html_text = 3;
+}
+
+//
+// Describes the Regex operation of Post-Processing profile
+//
+message RegexOperation {
+
+  // Unique index for ordering
+  uint32 index = 1;
+
+  // Regex pattern
+  string pattern = 2;
+
+  // Replacement string
+  string replacement = 3;
+
+  // Optional regex flags
+  string flags = 4;
+
+  // Optional human-readable description
+  string description = 5;
+}
+
+//
+// Describes the Post-Processing profile message
+//
+message PostProcessingProfile {
+
+  // UUID of the Post-Processing Profile (immutable)
+  string profile_id = 1;
+
+  // DeploymentId for which this profile belongs
+  string deployment_id = 2;
+
+  // Version number of this profile (1 = first)
+  uint32 version = 3;
+
+  // Name of this profile
+  string name = 4;
+
+  // Optional human-readable description
+  string description = 5;
+
+  // Array of regex operations
+  repeated RegexOperation operations = 6;
+
+  // When this profile was created
+  google.protobuf.Timestamp created_at = 7;
+
+  // When this profile was updated
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+//
+// Describes Post-Processing profile creation request
+//
+message CreatePostProcessingProfileRequest {
+
+  // Name of this profile
+  string name = 1;
+
+  // Optional human-readable description
+  string description = 2;
+
+  // Array of regex operations
+  repeated RegexOperation operations = 3;
+}
+
+//
+// Describes Post-Processing profile creation response
+//
+message CreatePostProcessingProfileResponse {
+
+  // Contains the GUID (UUID) string of the newly created profile
+  string profile_id = 1;
+}
+
+//
+// Describes Post-Processing profiles Get request
+//
+message GetPostProcessingProfilesRequest {
+  // Currently empty, can be extended with profiles filtering parameters
+}
+
+//
+// Describes Post-Processing profiles Get response
+//
+message GetPostProcessingProfilesResponse {
+
+  repeated PostProcessingProfile profiles = 1;
+}
+
+//
+// Describes Post-Processing profile Get request
+//
+message GetPostProcessingProfileRequest {
+
+  // Contains the GUID (UUID) string of Post-Processing profile
+  string profile_id = 1;
+}
+
+//
+// Describes Post-Processing profile Get response
+//
+message GetPostProcessingProfileResponse {
+
+  // Contains requested Post-Processing profile message
+  PostProcessingProfile profile = 1;
+}
+
+//
+// Describes Post-Processing profile Update request
+//
+message UpdatePostProcessingProfileRequest{
+
+  // UUID of the Post-Processing Profile which is being updated
+  string profile_id = 1;
+
+  // Optional human-readable description
+  string description = 2;
+
+  // Specify new list of regex operations
+  repeated RegexOperation operations = 3;
+}
+
+//
+// Describes Post-Processing profile Update response
+//
+message UpdatePostProcessingProfileResponse {
+
+  // Contains requested Post-Processing profile message
+  PostProcessingProfile profile = 1;
+}
+
+//
+// Describes Post-Processing profile Delete request
+//
+message DeletePostProcessingProfileRequest {
+
+  // UUID of the Post-Processing Profile to delete
+  string profile_id = 1;
+}
+
+//
+// Describes Post-Processing profile Delete response
+//
+message DeletePostProcessingProfileResponse {
+
+  // UUID of deleted Post-Processing Profile
+  string profile_id = 1;
+}
+
+//
+// Describes Post-Processing profile exporting request
+//
+message ExportPostProcessingProfileRequest {
+
+  // UUID of the Post-Processing Profile to export
+  string profile_id = 1;
+}
+
+//
+// Describes Post-Processing profile exporting response
+//
+message ExportPostProcessingProfileResponse {
+
+  // serialized profile data
+  google.protobuf.Struct export_data = 1;
+}
+
+//
+// Describes Post-Processing profile importing request
+//
+message ImportPostProcessingProfileRequest {
+
+  // serialized JSON profile data
+  google.protobuf.Struct import_data = 1;
+}
+
+//
+// Describes Post-Processing profile importing response
+//
+message ImportPostProcessingProfileResponse {
+
+  // UUID of the imported Post-Processing Profile
+  string profile_id = 1;
+}
+
+//
+// Describes Post-Processing profile versions history request
+//
+message GetPostProcessingProfileHistoryRequest {
+
+  // UUID of the Post-Processing Profile
+  string profile_id = 1;
+}
+
+//
+// Describes Post-Processing profile versions history response
+//
+message GetPostProcessingProfileHistoryResponse {
+
+  // UUID of the Post-Processing Profile (immutable)
+  string profile_id = 1;
+
+  // Array of all versions of the Post-Processing Profile
+  repeated PostProcessingProfile versions = 2;
 }

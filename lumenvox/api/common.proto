@@ -225,6 +225,9 @@ enum InteractionType {
 
   // LanguageId interaction type
   INTERACTION_TYPE_LANGUAGE_ID = 11;
+
+  // Neuron interaction type
+  INTERACTION_TYPE_NEURON = 12;
 }
 
 //
@@ -328,6 +331,9 @@ enum InteractionStatus {
 
   // LanguageId processing
   INTERACTION_STATUS_LANGUAGE_ID_PROCESSING = 900;
+
+  // Neuron processing
+  INTERACTION_STATUS_NEURON_PROCESSING = 1000;
 }
 
 //

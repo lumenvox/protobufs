@@ -67,4 +67,10 @@ message AudioFormat {
   // For audio formats with headers, this value will be ignored, and instead the value from the file header will be used.
   // Default: 8000 (8 KHz)
   OptionalInt32 sample_rate_hertz = 2;
+
+  // Number of audio channels
+  // This field is optional. Specify it only for RAW (headerless) multi-channel audio formats such as stereo PCM or ULAW.
+  // For audio formats with headers (WAV, MP3, etc.), this value is ignored; the value from the file header will be used instead.
+  // Default: 1 (mono)
+  OptionalInt32 channel_count = 3;
 }

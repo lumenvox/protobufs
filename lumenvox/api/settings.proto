@@ -408,6 +408,17 @@ message CpaSettings {
   // Only use this if you understand the implications (lower accuracy).
   // Default: 0 (disabled)
   OptionalInt32 max_time_from_connect_ms = 4;
+
+  // Enable detection of end of speech.
+  // This is can be used after a cpa interaction to detect when the user has stopped speaking.
+  // If this setting is enabled, other cpa modes will be ignored.
+  // Default: false
+  OptionalBool prompt_end_detect = 5;
+
+  // Maximum amount of time to wait for the prompt end to be detected.
+  // If this timeout is reached, the interaction will return the tone "PROMPT_END_TIMEOUT" in the result.
+  // Default: 10000 (10 seconds)
+  OptionalInt32 prompt_end_timeout_ms = 6;
 }
 
 message PhraseListSettings {
@@ -481,6 +492,13 @@ message AmdSettings {
   // Maximum number of milliseconds the tone detection algorithm should listen
   // for input before timing out.
   OptionalInt32 tone_detect_timeout_ms = 15;
+
+  // Enable screening tone detection.
+  // When the beginning of a screening tone is detected, the interaction
+  // will return the tone "SCREENING" in the response.
+  // This setting can be used simultaneously with other tone detection settings.
+  // Default: false
+  OptionalBool screening_enable = 16;
 }
 
 message AudioConsumeSettings {

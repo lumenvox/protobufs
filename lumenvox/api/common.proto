@@ -228,6 +228,9 @@ enum InteractionType {
 
   // Neuron interaction type
   INTERACTION_TYPE_NEURON = 12;
+
+  // Sentiment interaction type
+  INTERACTION_TYPE_SENTIMENT = 13;
 }
 
 //
@@ -334,6 +337,9 @@ enum InteractionStatus {
 
   // Neuron processing
   INTERACTION_STATUS_NEURON_PROCESSING = 1000;
+
+  // Sentiment processing
+  INTERACTION_STATUS_SENTIMENT_PROCESSING = 1100;
 }
 
 //

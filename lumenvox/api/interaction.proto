@@ -64,6 +64,9 @@ message InteractionRequestMessage {
     // Create a neuron request
     InteractionCreateNeuronRequest interaction_create_neuron = 16;
 
+    // Create a sentiment request
+    InteractionCreateSentimentRequest interaction_create_sentiment = 17;
+
     // Additional InteractionRequest message types added here
 
     // Interaction cancel
@@ -368,6 +371,12 @@ message InteractionCreateLanguageIdRequest {
 
   // Optional settings specifying audio to process for interaction
   AudioConsumeSettings audio_consume_settings = 3;
+
+  // Optional list of languages to detect.
+  // e.g.: "en, es, fr"
+  // Possible values: "en", "es", "fr", "de", "ru", "zh", "nl", "ja", "pt", or "it"
+  // Default: all languages are used for detection
+  OptionalString target_languages = 4;
 }
 
 message InteractionCreateLanguageIdResponse {
@@ -396,6 +405,10 @@ message InteractionCreateGrammarParseRequest {
 
   // Optional settings related to all interactions
   GeneralInteractionSettings general_interaction_settings = 6;
+
+  // If true, include parse tree information in the reply
+  // Default: false (to avoid unnecessary computation/serialization overhead)
+  bool include_parse_trees = 7;
 }
 
 message InteractionCreateGrammarParseResponse {
@@ -420,6 +433,22 @@ message InteractionCreateNeuronRequest {
 message InteractionCreateNeuronResponse {
   // Interaction ID (UUID) that can be used during subsequent Neuron
   // processing
+  string interaction_id = 1;
+}
+
+message InteractionCreateSentimentRequest {
+  // Language to use for processing (e.g. en-US)
+  string language = 1;
+
+  // Text strings to be processed. Multiple phrases can be provided for batch sentiment analysis.
+  repeated string input_text = 2;
+
+  // Optional settings related to all interactions
+  GeneralInteractionSettings general_interaction_settings = 4;
+}
+
+message InteractionCreateSentimentResponse {
+  // Interaction ID (UUID) that can be used during subsequent processing
   string interaction_id = 1;
 }
 

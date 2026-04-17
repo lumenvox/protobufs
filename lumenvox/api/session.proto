@@ -155,6 +155,9 @@ message SessionResponse {
     // Response to create Neuron interaction request
     InteractionCreateNeuronResponse interaction_create_neuron = 24;
 
+    // Response to create Sentiment interaction request
+    InteractionCreateSentimentResponse interaction_create_sentiment = 25;
+
     // Additional InteractionResponse message types added here
 
     // Response to interaction cancel

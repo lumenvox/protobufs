@@ -74,6 +74,10 @@ message SemanticInterpretation {
 
   // Raw input text for the interpretation
   string input_text = 6;
+
+  // Parse tree string for this interpretation (human-readable format).
+  // Populated when include_parse_trees is true.
+  string parse_tree_string = 7;
 }
 
 // Structure to hold data provided from ASR as final results
@@ -226,6 +230,21 @@ message NeuronIntentResult {
 
   // Value 0 to 1000 on how confident the result match is.
   uint32 confidence = 3;
+}
+
+// Result returned from a Sentiment interaction.
+//
+message SentimentInteractionResult {
+  // Array of one or more matching sentiment segments detected
+  repeated SentimentSegmentResult results = 1;
+}
+
+// Individual sentiment intent result within the processed response along with
+// related result fields.
+//
+message SentimentSegmentResult {
+  // Identifies the sentiments detected within this result (one per input text)
+  repeated string sentiment = 1;
 }
 
 // Result returned from a transcription interaction.
@@ -417,6 +436,9 @@ message Result {
 
     // Result for Neuron interaction
     NeuronInteractionResult neuron_interaction_result = 11;
+
+    // Result for Sentiment interaction
+    SentimentInteractionResult sentiment_interaction_result = 12;
   }
 }
 
@@ -510,6 +532,9 @@ enum FinalResultStatus {
 
   // An inverse text normalization result was returned for a NormalizeText interaction.
   FINAL_RESULT_STATUS_TEXT_NORMALIZE_RESULT = 61;
+
+  // A sentiment result was returned for a Sentiment interaction
+  FINAL_RESULT_STATUS_SENTIMENT_RESULT = 62;
 
   // An NLU result was returned for a requested interaction
   FINAL_RESULT_STATUS_NLU_RESULT = 71;

@@ -131,6 +131,10 @@ message Grammar {
   // Optional label assigned to grammar, used for error reporting
   // Note: label must consist of letters, digits, hyphens, underscores only
   OptionalString label = 7;
+
+  // Optional scaling weight for this grammar when used with ASR or transcription.
+  // 0 or unset means use service default (1.0). Propagated to Redis GrammarKey.grammar_weight.
+  OptionalFloat grammar_weight = 8;
 }
 
 //

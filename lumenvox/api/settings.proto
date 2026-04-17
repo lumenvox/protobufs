@@ -160,6 +160,11 @@ message GrammarSettings {
   // Range: 1-
   // Default: 6
   OptionalInt32 max_enhanced_length = 6;
+
+  // Probability score boost for loaded grammars. Raises or lowers the
+  // probability that grammar paths are recognized.
+  // Default: 1
+  OptionalInt32 probability_boost = 7;
 }
 
 // Settings related to recognition results

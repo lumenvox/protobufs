@@ -224,6 +224,11 @@ message InteractionCreateTranscriptionRequest {
   // Default is to not specify this, allowing engine to use default
   // postprocessing
   OptionalString enable_postprocessing = 14;
+
+  // Optional name of a neuron model to use when processing the final
+  // transcript. The neuron portion of the transcription flow will only
+  // activate when this value is defined.
+  OptionalString neuron_model = 15;
 }
 
 message InteractionCreateTranscriptionResponse {

@@ -5,8 +5,8 @@ syntax = "proto3";
 
 package lumenvox.api;
 
-import "google/rpc/status.proto";
 import "google/protobuf/struct.proto";
+import "google/rpc/status.proto";
 import "lumenvox/api/audio_formats.proto";
 import "lumenvox/api/optional_values.proto";
 
@@ -83,19 +83,16 @@ message SemanticInterpretation {
 // Structure to hold data provided from ASR as final results
 //
 message AsrGrammarResult {
-
   // Raw ASR output used to produce semantic interpretations
   AsrResultMetaData asr_result_meta_data = 1;
 
   // List of all possible semantic interpretations for given transcript.
   repeated SemanticInterpretation semantic_interpretations = 2;
-
 }
 
 // Structure to hold data provided from ASR as final results
 //
 message TranscriptionResult {
-
   // Raw ASR output which includes the transcript of the audio.
   AsrResultMetaData asr_result_meta_data = 1;
 
@@ -113,12 +110,14 @@ message TranscriptionResult {
 
   // Optional blended quality transcription score
   OptionalFloat blended_score = 6;
+
+  // If neuron is enabled, its results will included here.
+  NeuronInteractionResult neuron_result = 7;
 }
 
 // Result returned from an AMD interaction.
 //
 message AmdInteractionResult {
-
   // AMD result in the form of an ASR-type message.
   AsrGrammarResult amd_result = 1;
 }
@@ -135,12 +134,14 @@ message AsrInteractionResult {
 
   // Language defined when creating the interaction.
   string language = 3;
+
+  // If neuron is enabled, its results will included here.
+  NeuronInteractionResult neuron_result = 4;
 }
 
 // Result returned from a CPA interaction.
 //
 message CpaInteractionResult {
-
   // CPA result in the form of an ASR-type message.
   AsrGrammarResult cpa_result = 1;
 }
@@ -148,7 +149,6 @@ message CpaInteractionResult {
 // Result returned from an NLU interaction.
 //
 message NluInteractionResult {
-
   // If summarization bullet points are specified, bullet points are added here.
   repeated string summary_bullet_points = 1;
 
@@ -177,7 +177,6 @@ message NluInteractionResult {
 // Result returned from a Diarization interaction.
 //
 message DiarizationInteractionResult {
-
   repeated DiarizationResult results = 1;
 }
 
@@ -196,7 +195,6 @@ message DiarizationResult {
 // Result returned from a LanguageId interaction.
 //
 message LanguageIdInteractionResult {
-
   repeated LanguageIdResult results = 1;
 }
 
@@ -217,7 +215,7 @@ message NeuronInteractionResult {
   // Array of one or more matching intents detected
   repeated NeuronIntentResult results = 1;
 
-  // Optional metadata retuned with from the intent processing
+  // Optional metadata returned from the intent processing
   string metadata_json = 2;
 }
 
@@ -479,7 +477,6 @@ message FinalResult {
 // List of Interaction FinalResult Statuses
 //
 enum FinalResultStatus {
-
   // No final status specified
   FINAL_RESULT_STATUS_UNSPECIFIED = 0;
 
@@ -499,7 +496,7 @@ enum FinalResultStatus {
   // A transcription “intermediate” final result was returned
   FINAL_RESULT_STATUS_TRANSCRIPTION_CONTINUOUS_MATCH = 12;
 
-  // A transcription result was returned, 
+  // A transcription result was returned,
   // which contains one or more embedded grammar matches
   FINAL_RESULT_STATUS_TRANSCRIPTION_GRAMMAR_MATCHES = 13;
 
@@ -518,7 +515,7 @@ enum FinalResultStatus {
   // An AMD interaction found one or more tones within the audio
   FINAL_RESULT_STATUS_AMD_TONE = 31;
 
-  // An AMD interaction found no tones within the audio 
+  // An AMD interaction found no tones within the audio
   FINAL_RESULT_STATUS_AMD_NO_TONES = 32;
 
   // A CPA interaction result was returned

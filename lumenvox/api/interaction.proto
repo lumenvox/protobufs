@@ -4,6 +4,7 @@
 syntax = "proto3";
 
 package lumenvox.api;
+
 import "google/rpc/status.proto";
 import "lumenvox/api/audio_formats.proto";
 import "lumenvox/api/common.proto";
@@ -18,7 +19,6 @@ option java_outer_classname = "InteractionProto";
 option java_package = "lumenvox.api";
 option objc_class_prefix = "CLVOP";
 option php_namespace = "LumenVox\\Api\\Interaction";
-
 
 message InteractionRequestMessage {
   oneof interaction_request {
@@ -70,7 +70,7 @@ message InteractionRequestMessage {
     // Additional InteractionRequest message types added here
 
     // Interaction cancel
-    InteractionCancelRequest interaction_cancel = 100;
+    InteractionCancelRequest interaction_cancel = 100 [deprecated = true];
 
     // Explicit request to close interaction
     InteractionCloseRequest interaction_close = 101;
@@ -159,7 +159,6 @@ message TranscriptionPhraseList {
   PhraseList session_phrase_list = 3;
 }
 
-
 message InteractionCreateTranscriptionRequest {
   // Transcription language selector this request.
   // e.g.: "en-US", "de-DE" or dialect independent "en", "de", etc.
@@ -237,6 +236,18 @@ message InteractionCreateTranscriptionResponse {
 }
 
 message InteractionCreateTtsRequest {
+  // Synthesis engine tiers
+  enum TtsEngine {
+    // Default: routes based on installed CPU-based TTS [legacy or neural]
+    TTS_ENGINE_UNSPECIFIED = 0;
+
+    // Explicitly request the Neural engine
+    TTS_ENGINE_NEURAL = 1;
+
+    // Explicitly request the Ion engine
+    TTS_ENGINE_ION = 2;
+  }
+
   // Synthesis language for this request (e.g.: "en-US", "de-DE", etc.)
   string language = 1;
 
@@ -289,6 +300,10 @@ message InteractionCreateTtsRequest {
   // When true, partial results callbacks will be enabled for the interaction
   // Default: false
   OptionalBool enable_partial_results = 8;
+
+  // The specific engine to use for this synthesis. Defaults to
+  // TTS_ENGINE_UNSPECIFIED (0) for backward compatibility.
+  TtsEngine engine = 9;
 }
 
 message InteractionCreateTtsResponse {

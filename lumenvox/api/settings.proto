@@ -341,7 +341,7 @@ message VadSettings {
 
   // Determines noise reduction mode.
   // Default: NOISE_REDUCTION_DEFAULT
-  NoiseReductionMode noise_reduction_mode = 5;
+  NoiseReductionMode noise_reduction_mode = 5 [deprecated = true];
 
   // A higher value makes the VAD more sensitive towards speech, and less
   // sensitive towards non-speech, which means that the VAD algorithm must be
@@ -364,7 +364,7 @@ message VadSettings {
   // be to trigger barge-in.
   // Range: Integer range from 0 to 100
   // Default: 50
-  OptionalInt32 snr_sensitivity = 8;
+  OptionalInt32 snr_sensitivity = 8 [deprecated = true];
 
   // Accurate VAD depends on a good estimation of the acoustic environment. The
   // VAD module uses the first couple frames of audio to estimate the acoustic
@@ -372,7 +372,7 @@ message VadSettings {
   // this parameter.
   // Range: A positive integer number of milliseconds.
   // Default: 100
-  OptionalInt32 stream_init_delay = 9;
+  OptionalInt32 stream_init_delay = 9 [deprecated = true];
 
   // The volume required to trigger barge-in. The smaller the value, the more
   // sensitive barge-in will be. This is primarily used to deal with poor echo
@@ -380,7 +380,7 @@ message VadSettings {
   // are not properly cancelled will be less likely to falsely cancel barge-in.
   // Range: Integer range from 0 to 100
   // Default: 50
-  OptionalInt32 volume_sensitivity = 10;
+  OptionalInt32 volume_sensitivity = 10 [deprecated = true];
 
   // The length of audio to be wound back at the beginning of voice activity.
   // This is used primarily to counter instances where barge-in does not
@@ -430,8 +430,8 @@ message PhraseListSettings {
   // Probability score boost raises or lowers the probability the words or
   // phrases are recognized. A negative value lowers the probability the
   // word is returned in results.
-  // Range: -10.0 to 5.0 (very probable)
-  // Default: 0 
+  // Range: > 0
+  // Default: 1
   OptionalInt32 probability_boost = 2;
 }
 

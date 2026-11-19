@@ -24,7 +24,6 @@ option php_namespace = "LumenVox\\Api\\Session";
 // Note: All UUID values should be compatible with RFC 4122, and string format
 //       should be in the form "d2dfc723-a6db-4ceb-b6e5-e46867dfe1cb"
 
-
 message SessionRequestMessage {
   oneof name {
     // Creates a new session and returns its ID and session related messages
@@ -54,7 +53,7 @@ message SessionRequestMessage {
     SessionLoadPhraseList session_load_phrase_list = 8;
 
     // Explicit request to cancel all session related interactions and processing in progress
-    SessionCancelRequest session_cancel = 9;
+    SessionCancelRequest session_cancel = 9 [deprecated = true];
   }
 }
 
@@ -161,13 +160,13 @@ message SessionResponse {
     // Additional InteractionResponse message types added here
 
     // Response to interaction cancel
-    InteractionCancelResponse interaction_cancel = 100;
+    InteractionCancelResponse interaction_cancel = 100 [deprecated = true];
 
     // Response to explicit request to close interaction
     InteractionCloseResponse interaction_close = 101;
 
     // Response for explicit session cancel request
-    SessionCancelResponse session_cancel = 102;
+    SessionCancelResponse session_cancel = 102 [deprecated = true];
   }
 }
 
@@ -280,4 +279,3 @@ message SessionLoadPhraseListResponse {
   // The label for the phrase list.
   string label = 2;
 }
-

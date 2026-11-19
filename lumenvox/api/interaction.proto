@@ -69,7 +69,8 @@ message InteractionRequestMessage {
 
     // Additional InteractionRequest message types added here
 
-    // Interaction cancel
+    // Interaction cancel.
+    // Deprecated: use interaction_close instead.
     InteractionCancelRequest interaction_cancel = 100 [deprecated = true];
 
     // Explicit request to close interaction
@@ -495,7 +496,10 @@ message InteractionRequestResultsResponse {
   Result interaction_results = 2;
 }
 
+// Deprecated: use InteractionCloseRequest instead.
 message InteractionCancelRequest {
+  option deprecated = true;
+
   // The interaction object being referenced
   string interaction_id = 1;
 }

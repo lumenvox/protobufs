@@ -52,7 +52,8 @@ message SessionRequestMessage {
     // Load session-specific phrase list
     SessionLoadPhraseList session_load_phrase_list = 8;
 
-    // Explicit request to cancel all session related interactions and processing in progress
+    // Explicit request to cancel all session related interactions and processing in progress.
+    // Deprecated: use session_close instead.
     SessionCancelRequest session_cancel = 9 [deprecated = true];
   }
 }
@@ -207,7 +208,10 @@ message SessionCloseResponse {
   google.rpc.Status close_status = 1;
 }
 
+// Deprecated: use SessionCloseRequest instead.
 message SessionCancelRequest {
+  option deprecated = true;
+
   // Currently no fields defined
 }
 

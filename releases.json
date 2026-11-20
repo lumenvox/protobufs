@@ -1,0 +1,425 @@
+{
+  "latest": "8.1.0",
+  "releases": [
+    {
+      "release": "8.1.0",
+      "builtAt": "2026-11-20",
+      "apis": [
+        {
+          "id": "asr-lumenvox.proto",
+          "title": "LumenVox API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox speech API.",
+          "type": "grpc"
+        },
+        {
+          "id": "reporting.proto",
+          "title": "Reporting API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox reporting API.",
+          "type": "grpc"
+        },
+        {
+          "id": "management-api",
+          "title": "Management API",
+          "summary": "Deployment, licensing and configuration management.",
+          "type": "rest"
+        },
+        {
+          "id": "reporting-api",
+          "title": "Reporting API",
+          "summary": "Report discovery and generation.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-api",
+          "title": "Voice Biometrics API",
+          "summary": "Enrollment, verification and identification.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-reporting",
+          "title": "Voice Biometrics Reporting API",
+          "summary": "Biometric report discovery and generation.",
+          "type": "rest"
+        }
+      ]
+    },
+    {
+      "release": "8.0.0",
+      "builtAt": "2026-10-10",
+      "apis": [
+        {
+          "id": "asr-lumenvox.proto",
+          "title": "LumenVox API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox speech API.",
+          "type": "grpc"
+        },
+        {
+          "id": "reporting.proto",
+          "title": "Reporting API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox reporting API.",
+          "type": "grpc"
+        },
+        {
+          "id": "management-api",
+          "title": "Management API",
+          "summary": "Deployment, licensing and configuration management.",
+          "type": "rest"
+        },
+        {
+          "id": "reporting-api",
+          "title": "Reporting API",
+          "summary": "Report discovery and generation.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-api",
+          "title": "Voice Biometrics API",
+          "summary": "Enrollment, verification and identification.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-reporting",
+          "title": "Voice Biometrics Reporting API",
+          "summary": "Biometric report discovery and generation.",
+          "type": "rest"
+        }
+      ]
+    },
+    {
+      "release": "7.1.0",
+      "builtAt": "2026-10-10",
+      "apis": [
+        {
+          "id": "asr-lumenvox.proto",
+          "title": "LumenVox API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox speech API.",
+          "type": "grpc"
+        },
+        {
+          "id": "reporting.proto",
+          "title": "Reporting API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox reporting API.",
+          "type": "grpc"
+        },
+        {
+          "id": "management-api",
+          "title": "Management API",
+          "summary": "Deployment, licensing and configuration management.",
+          "type": "rest"
+        },
+        {
+          "id": "reporting-api",
+          "title": "Reporting API",
+          "summary": "Report discovery and generation.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-api",
+          "title": "Voice Biometrics API",
+          "summary": "Enrollment, verification and identification.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-reporting",
+          "title": "Voice Biometrics Reporting API",
+          "summary": "Biometric report discovery and generation.",
+          "type": "rest"
+        }
+      ]
+    },
+    {
+      "release": "7.0.0",
+      "builtAt": "2026-10-10",
+      "apis": [
+        {
+          "id": "asr-lumenvox.proto",
+          "title": "LumenVox API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox speech API.",
+          "type": "grpc"
+        },
+        {
+          "id": "reporting.proto",
+          "title": "Reporting API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox reporting API.",
+          "type": "grpc"
+        },
+        {
+          "id": "management-api",
+          "title": "Management API",
+          "summary": "Deployment, licensing and configuration management.",
+          "type": "rest"
+        },
+        {
+          "id": "reporting-api",
+          "title": "Reporting API",
+          "summary": "Report discovery and generation.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-api",
+          "title": "Voice Biometrics API",
+          "summary": "Enrollment, verification and identification.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-reporting",
+          "title": "Voice Biometrics Reporting API",
+          "summary": "Biometric report discovery and generation.",
+          "type": "rest"
+        }
+      ]
+    },
+    {
+      "release": "6.3.0",
+      "builtAt": "2026-10-10",
+      "apis": [
+        {
+          "id": "asr-lumenvox.proto",
+          "title": "LumenVox API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox speech API.",
+          "type": "grpc"
+        },
+        {
+          "id": "reporting.proto",
+          "title": "Reporting API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox reporting API.",
+          "type": "grpc"
+        },
+        {
+          "id": "management-api",
+          "title": "Management API",
+          "summary": "Deployment, licensing and configuration management.",
+          "type": "rest"
+        },
+        {
+          "id": "reporting-api",
+          "title": "Reporting API",
+          "summary": "Report discovery and generation.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-api",
+          "title": "Voice Biometrics API",
+          "summary": "Enrollment, verification and identification.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-reporting",
+          "title": "Voice Biometrics Reporting API",
+          "summary": "Biometric report discovery and generation.",
+          "type": "rest"
+        }
+      ]
+    },
+    {
+      "release": "6.2.0",
+      "builtAt": "2026-10-10",
+      "apis": [
+        {
+          "id": "asr-lumenvox.proto",
+          "title": "LumenVox API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox speech API.",
+          "type": "grpc"
+        },
+        {
+          "id": "reporting.proto",
+          "title": "Reporting API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox reporting API.",
+          "type": "grpc"
+        },
+        {
+          "id": "management-api",
+          "title": "Management API",
+          "summary": "Deployment, licensing and configuration management.",
+          "type": "rest"
+        },
+        {
+          "id": "reporting-api",
+          "title": "Reporting API",
+          "summary": "Report discovery and generation.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-api",
+          "title": "Voice Biometrics API",
+          "summary": "Enrollment, verification and identification.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-reporting",
+          "title": "Voice Biometrics Reporting API",
+          "summary": "Biometric report discovery and generation.",
+          "type": "rest"
+        }
+      ]
+    },
+    {
+      "release": "6.1.0",
+      "builtAt": "2026-10-10",
+      "apis": [
+        {
+          "id": "asr-lumenvox.proto",
+          "title": "LumenVox API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox speech API.",
+          "type": "grpc"
+        },
+        {
+          "id": "reporting.proto",
+          "title": "Reporting API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox reporting API.",
+          "type": "grpc"
+        },
+        {
+          "id": "management-api",
+          "title": "Management API",
+          "summary": "Deployment, licensing and configuration management.",
+          "type": "rest"
+        },
+        {
+          "id": "reporting-api",
+          "title": "Reporting API",
+          "summary": "Report discovery and generation.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-api",
+          "title": "Voice Biometrics API",
+          "summary": "Enrollment, verification and identification.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-reporting",
+          "title": "Voice Biometrics Reporting API",
+          "summary": "Biometric report discovery and generation.",
+          "type": "rest"
+        }
+      ]
+    },
+    {
+      "release": "6.0.0",
+      "builtAt": "2026-10-10",
+      "apis": [
+        {
+          "id": "asr-lumenvox.proto",
+          "title": "LumenVox API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox speech API.",
+          "type": "grpc"
+        },
+        {
+          "id": "reporting.proto",
+          "title": "Reporting API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox reporting API.",
+          "type": "grpc"
+        },
+        {
+          "id": "management-api",
+          "title": "Management API",
+          "summary": "Deployment, licensing and configuration management.",
+          "type": "rest"
+        },
+        {
+          "id": "reporting-api",
+          "title": "Reporting API",
+          "summary": "Report discovery and generation.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-api",
+          "title": "Voice Biometrics API",
+          "summary": "Enrollment, verification and identification.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-reporting",
+          "title": "Voice Biometrics Reporting API",
+          "summary": "Biometric report discovery and generation.",
+          "type": "rest"
+        }
+      ]
+    },
+    {
+      "release": "5.4.0",
+      "builtAt": "2026-10-10",
+      "apis": [
+        {
+          "id": "asr-lumenvox.proto",
+          "title": "LumenVox API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox speech API.",
+          "type": "grpc"
+        },
+        {
+          "id": "reporting.proto",
+          "title": "Reporting API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox reporting API.",
+          "type": "grpc"
+        },
+        {
+          "id": "management-api",
+          "title": "Management API",
+          "summary": "Deployment, licensing and configuration management.",
+          "type": "rest"
+        },
+        {
+          "id": "reporting-api",
+          "title": "Reporting API",
+          "summary": "Report discovery and generation.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-api",
+          "title": "Voice Biometrics API",
+          "summary": "Enrollment, verification and identification.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-reporting",
+          "title": "Voice Biometrics Reporting API",
+          "summary": "Biometric report discovery and generation.",
+          "type": "rest"
+        }
+      ]
+    },
+    {
+      "release": "4.7.0",
+      "builtAt": "2026-10-10",
+      "apis": [
+        {
+          "id": "asr-lumenvox.proto",
+          "title": "LumenVox API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox speech API.",
+          "type": "grpc"
+        },
+        {
+          "id": "reporting.proto",
+          "title": "Reporting API (gRPC)",
+          "summary": "Protocol Buffer definitions for the LumenVox reporting API.",
+          "type": "grpc"
+        },
+        {
+          "id": "management-api",
+          "title": "Management API",
+          "summary": "Deployment, licensing and configuration management.",
+          "type": "rest"
+        },
+        {
+          "id": "reporting-api",
+          "title": "Reporting API",
+          "summary": "Report discovery and generation.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-api",
+          "title": "Voice Biometrics API",
+          "summary": "Enrollment, verification and identification.",
+          "type": "rest"
+        },
+        {
+          "id": "vb-reporting",
+          "title": "Voice Biometrics Reporting API",
+          "summary": "Biometric report discovery and generation.",
+          "type": "rest"
+        }
+      ]
+    }
+  ]
+}
